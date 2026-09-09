@@ -11,6 +11,7 @@ So for me, I think coding is a back and forth dialog between me and the computer
 I used to take Bio-engineering classes. That course strongly impact me with how in the real world - the animals, genes, DNAs are also bunch of codes underneath them. DNA sequences are made of letters like A, T, C, and G, and we can edit these sequences.
 
 So I really want to explore this idea visually. Instead of only editing DNA in a lab, I want to see if I can turn DNA sequences and the idea of editing into visual forms through coding. And what happens when a very scientific and controlled system becomes something **visual, expressive, and unexpected**.
+
 ---
 
 This is a README file that can be used to describe and document your assignment.
