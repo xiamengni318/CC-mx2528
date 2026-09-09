@@ -16,6 +16,8 @@ const quotes = [
 
 // a variable that holds the current quote
 let current = [];
+let quoteAlpha = 255; //quote transparency
+let fadeState = false; //quote trasnparency in 0 or not
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -32,13 +34,19 @@ function pickQuote() {
 }
 
 function draw() {
-  background(20, 25, 20); // set the background color
+  background(20, 25+mouseX/4, 20, 60); // set the background color And Fade
   
-  fill(250,250,250) //set cursor color
-  rect(mouseX-10, mouseY-4, 4, 18) //add a cute cursor
+  drawCursor();
 
-  fill(10, 255, 10); //set quote color
+  updateFade();
+
+  fill(10, 255-mouseX/4, 10, quoteAlpha); //set quote color
   drawQuote();  // draw the quote on screen
+}
+
+function drawCursor() {
+   fill(20, 20, 20) //set cursor color
+  rect(mouseX-10, mouseY-8, 2, 24) //add a cute cursor
 }
 
 function drawQuote() {   // draw text
@@ -55,11 +63,26 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
-function newQuote() {
-  pickQuote();
-  redraw();
+function updateFade() {
+  if (fadeState) {
+    quoteAlpha -= 30; //lower the transparency
+    if (quoteAlpha <= 0) {
+      quoteAlpha = 0;
+      pickQuote(); 
+      fadeState = false; //done fading
+    }
+  } else {
+    if (quoteAlpha < 255) {
+      quoteAlpha += 10; //adding transparency
+    }
+  }
 }
 
+// function newQuote() {
+//  pickQuote();
+//  redraw();
+// }
+
 function mousePressed() {
-  newQuote();
+  fadeState = true; //start to fade
 }
