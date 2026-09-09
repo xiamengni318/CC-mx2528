@@ -3,10 +3,14 @@
 ## To me, what is code?
 Not so different from what I read from the article. Because the first time I contacted with coding is for art purpose, I always undrstand code as a logical and instructive medium of production. 
 
-Just as the example given in "FORM + CODE". Setting an instruction (or we can say rules) for the participants, and letting them follow it to draw lines on the wall, is also a type of **code** (*Sol LeWitt, Wall Drawing*). So as in creative coding, what we are doing and I was doing were pretty the same: Giving instructions to the PC, and let it produce what I want.
+Just as the example given in "FORM + CODE". Setting an instruction (or we can say rules) for the participants, and letting them follow it to draw lines on the wall, is also a type of **code** (*Sol LeWitt, Wall Drawing*). So as in creative coding, what we are doing and I was doing were pretty the same: Giving instructions to the PC, and letting it produce what I want. Not only one single frame, but a system that keep running.
 
+So for me, I think coding is a back and forth dialog between me and the computer. I use this ordered system to create explosion. Since everything can be transform into a specific code, that means we can code everything.
 
+## What to expect?
+I used to take Bio-engineering classes. That course strongly impact me with how in the real world - the animals, genes, DNAs are also bunch of codes underneath them. DNA sequences are made of letters like A, T, C, and G, and we can edit these sequences.
 
+So I really want to explore this idea visually. Instead of only editing DNA in a lab, I want to see if I can turn DNA sequences and the idea of editing into visual forms through coding. And what happens when a very scientific and controlled system becomes something **visual, expressive, and unexpected**.
 ---
 
 This is a README file that can be used to describe and document your assignment.
