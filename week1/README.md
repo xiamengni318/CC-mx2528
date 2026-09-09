@@ -1,4 +1,11 @@
-# Week 1 notes
+# Week 1 Reflection
+
+## To me, what is code?
+Not so different from what I read from the article. Because the first time I contacted with coding is for art purpose, I always undrstand code as a logical and instructive medium of production. 
+
+Just as the example given in "FORM + CODE". Setting an instruction (or we can say rules) for the participants, and letting them follow it to draw lines on the wall, is also a type of **code** (*Sol LeWitt, Wall Drawing*). So as in creative coding, what we are doing and I was doing were pretty the same: Giving instructions to the PC, and let it produce what I want.
+
+
 
 ---
 
@@ -8,7 +15,7 @@ Markdown Cheatsheet (from [https://www.markdownguide.org/cheat-sheet/](https://w
 
 ---
 
-# Heading1
+# Week 1 Reflection
 ## Heading2
 ### Heading3
 #### Heading4
