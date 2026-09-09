@@ -22,7 +22,6 @@ function setup() {
   // Seed with millis() so each page load gives a different quote.
   randomSeed(millis());
   textSize(32);
-  fill(10, 255, 10);
   // calls the function to pick a quote
   pickQuote();
 }
@@ -33,13 +32,18 @@ function pickQuote() {
 }
 
 function draw() {
-  background(255, 20, 250); // set the background color
+  background(20, 25, 20); // set the background color
+  
+  fill(250,250,250) //set cursor color
+  rect(mouseX-10, mouseY-4, 4, 18) //add a cute cursor
+
+  fill(10, 255, 10); //set quote color
   drawQuote();  // draw the quote on screen
 }
 
 function drawQuote() {   // draw text
   textAlign(CENTER, CENTER);
-  text("Creative Coding is.....", width / 2, height / 2 - 48);
+  text("Creative Coding is.....", width / 2, height / 2 - 68);
   textStyle(BOLD);
   text("'" + current.text + "'", width / 2, height / 2);
   textAlign(RIGHT, CENTER);
