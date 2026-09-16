@@ -1,15 +1,30 @@
 # Week 2 Explanation of My Drawing
 
-## To me, what is code?
-Not so different from what I read from the article. Because the first time I contacted with coding is for art purpose, I always undrstand code as a logical and instructive medium of production. 
+## Ieration 1
+A cool and simple line in the center.
 
-Just as the example given in "FORM + CODE". Setting an instruction (or we can say rules) for the participants, and letting them follow it to draw lines on the wall, is also a type of **code** (*Sol LeWitt, Wall Drawing*). So as in creative coding, what we are doing and I was doing were pretty the same: Giving instructions to the PC, and letting it produce what I want. Not only one single frame, but a system that keep running.
+## Ieration 2
+First box expanded.
 
-So for me, I think coding is a back and forth dialog between me and the computer. I use this ordered system to create explosion. Since everything can be transform into a specific code, that means we can code everything.
+## Ieration 3
+Second box expanded.
 
-## What to expect?
-I used to take Bio-engineering classes. That course strongly impact me with how in the real world - the animals, genes, DNAs are also bunch of codes underneath them. DNA sequences are made of letters like A, T, C, and G, and we can edit these sequences.
+## Ieration 4
+2 cool and cute circle appear.
 
-So I really want to explore this idea visually. Instead of only editing DNA in a lab, I want to see if I can turn DNA sequences and the idea of editing into visual forms through coding. And what happens when a very scientific and controlled system becomes something **visual, expressive, and unexpected**.
+## Ieration 5
+Double triangles came into the screen from up and down.
 
+## Ieration 6
+Everything expanded with the circles remain in the screen and the final pretty graphic showed up. As well as colored.
+## Reference Sketches in Media File
+
+## Learned
+I learn a lot through this project. 
+- Getting know to how the color actually works, because I includes a lot transitions. So I spend a lot of time to figure out where do I have to put the fill() function, and color the shape I want. At the same time avoid influencing the motions.
+- Learned a new function called lerp(), which is a calculation between 2 number. So it creates smooth movements between shapes. Totally understands this function now since I typed it so many times.
+- Spended way more time then I expect to calculate the position of triangles. Because I am trying to coordinates all the shape together and fits the window.
+- Writing different lerp functions is tiring because too many variaties cause a lot issues for me to organize them. Especially the triangles. Object helps a lot but not enough still complex. But I don't know other ways at the moment.
+- Took a lot of notes in my code to remind myself, for example: before the setup, the javascript cannot do math calculation.
+- Get back familiar with cosin and sin math.
 ---

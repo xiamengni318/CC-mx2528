@@ -84,6 +84,7 @@ function draw() {
 function mousePressed(){
   //Opening shapes step by step, determine which step is it now 
   step += 1;
+
   //Overall 5 changes so 5 steps
    if (step > 5){
     step = 0;
@@ -99,6 +100,27 @@ function mousePressed(){
    step4();
    //step 5
    step5();
+
+   //Go back to start when 0
+   if(step === 0){
+    recH2 = 4;
+    recW2 = 1350;
+    rec_2H2 = 4;
+    rec2_W2 = 1200;
+    C1_2 = 1;
+    C2_2 = 1;
+    tri1_2 = {
+      y1: -10,
+      y2: -10,
+      y3: -10
+    }
+    tri2_2 = {
+      y1: windowHeight + 10,
+      y2: windowHeight + 10,
+      y3: windowHeight + 10
+    }
+
+  }
    
 }
 
