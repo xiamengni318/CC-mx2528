@@ -105,30 +105,53 @@ function mousePressed(){
 function start(){
   //Rec 1 motion and size setting
   rectMode(CENTER);
-
-  if (step >= 5){
-    fill (0, 0, 250);
-  } else {
-    noFill();
-  }
+  //noFill();
   //Gradual transition of the rect's htight
   //Note: Addressing lerp() here to make sure it keep refreshing, not once every mouse pressed
   recH = lerp (recH, recH2, 0.1);
   recW = lerp (recW, recW2, 0.1);
-  rect(windowWidth / 2, windowHeight / 2, recW, recH);
+  if (step === 5){
+    fill (8, 186, 255);
+    rect(windowWidth / 2, windowHeight / 2, recW, recH);
+  } else {
+    noFill();
+    rect(windowWidth / 2, windowHeight / 2, recW, recH);
+  }
   
   //Rec 2 motion and size setting
   rec_2H = lerp (rec_2H, rec_2H2, 0.1);
   rec2W = lerp (rec2W, rec2_W2, 0.1);
   rect(windowWidth / 2, windowHeight / 2, rec2W, rec_2H);
 
+  //draw stripes behind the circle
+  if (step === 5){
+    noStroke();
+    fill (255, 235, 150);
+    triangle(windowWidth/2, windowHeight/2, 0, 80, 0, 280);
+    triangle(windowWidth/2, windowHeight/2, 0, windowHeight - 80, 0, windowHeight - 280);
+    triangle(windowWidth/2, windowHeight/2, windowWidth, 80, windowWidth, 280);
+    triangle(windowWidth/2, windowHeight/2, windowWidth, windowHeight - 80, windowWidth, windowHeight - 280);
+  }
+
   //circle 1
   C1 = lerp(C1, C1_2, 0.1);
-  circle(windowWidth/2, windowHeight/2, C1);
+  if(step === 5){
+    fill (250, 250, 0);
+    circle(windowWidth/2, windowHeight/2, C1);
+  } else {
+    noFill();
+    circle(windowWidth/2, windowHeight/2, C1);
+  }
 
   //circle 2
   C2 = lerp(C2, C2_2, 0.1);
-  circle(windowWidth/2, windowHeight/2, C2);
+  if (step === 5){
+    fill (0, 0, 250);
+    circle(windowWidth/2, windowHeight/2, C2);
+  } else {
+    noFill();
+    circle(windowWidth/2, windowHeight/2, C2);
+  }
 
   //tri 1
   //WHY CANT WE PUT THE ENTIRE OBJECT IN LERP AHHHHHH!
@@ -145,18 +168,23 @@ function start(){
   tri2.y3 = lerp(tri2.y3, tri2_2.y3, 0.1);
   triangle(tri2.x1, tri2.y1, tri2.x2, tri2.y2, tri2.x3, tri2.y3);
 
+  //draw star and cross in the center
+  if (step === 5){
+    fill (8, 186, 255);
+    noStroke();
+    quad(windowWidth/2, windowHeight/2 + 370, windowWidth/2 + 150, windowHeight/2, windowWidth/2, windowHeight/2 - 370, windowWidth/2 - 150, windowHeight/2);
+    fill (0, 230, 255);
+    quad(windowWidth/2, windowHeight/2 + 130, windowWidth/2 + 280, windowHeight/2, windowWidth/2, windowHeight/2 - 130, windowWidth/2 - 280, windowHeight/2);
+    fill (255, 0, 0);
+    rect(windowWidth/2, windowHeight/2, 25, 90);
+    rect(windowWidth/2, windowHeight/2, 90, 25);
+  }
+
 }
-
-//the start: a line
-// function step0(){
-//   if(step === 0){
-//     start();
-//   }
-
-// }
 
 // 1st step : rect1 open
 function step1 (){
+  noFill();
   if (step === 1) {
     if (recH2 === 4){
     recH2 = 700;
@@ -202,12 +230,25 @@ function step4(){
       }
 
     }
+  } else {
+    tri1_2 = {
+        y1: -10,
+        y2: -10,
+        y3: -10
+      }
+
+    tri2_2 = {
+        y1: windowHeight + 10,
+        y2: windowHeight + 10,
+        y3: windowHeight + 10
+      }
   }
 
 }
 
 function step5(){
   if(step === 5){
+
     if(recH2 === 700 && rec_2H2 === 600){
       recH2 = windowHeight + 10;
       rec_2H2 = windowHeight + 10;
@@ -216,11 +257,11 @@ function step5(){
       recW2 = windowWidth + 10;
       rec2_W2 = windowWidth + 10;
     }
-
     if(C1_2 === 450 && C2_2 === 350){
       C1_2 = 800;
       C2_2 = 700;
     }
+
   }
 }
 
