@@ -32,3 +32,20 @@ function draw() {
   x += incX;
   y += incY;
 }
+
+//randomSeed();
+//seed = xxx;
+// random();
+// random(0, width);
+//noLoop();
+//true randomness = noise ; predictable[0.7]
+// noise(); return 1 or 0;
+// svg.abs
+// library
+//ploter
+
+//##Week 4
+// seed; deexport; 576, 384 postcard size
+//keyPressed
+//svg file
+//ploter machine home top right 0,0
