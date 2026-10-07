@@ -1,10 +1,10 @@
-# template
-
----
 
 # Quick Notes
 Learned html, css, sliders, buttons on class. Need further exploration.
 
+
+# template
+---
 This is a README file that can be used to describe and document your assignment.
 
 Markdown Cheatsheet (from [https://www.markdownguide.org/cheat-sheet/](https://www.markdownguide.org/cheat-sheet/)):
