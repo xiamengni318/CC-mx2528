@@ -19,7 +19,8 @@ let eyeHi = 140; //height
 let eyeClo = 140;
 
 //heartbeat
-let heart;
+let beatHeights = [];
+let lastBeatSecond = -1;
 
 //Set a comparitive variable to check whenever minute changes
 let lastMin;
