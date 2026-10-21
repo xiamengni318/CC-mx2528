@@ -37,16 +37,22 @@ function draw(){
   //WEBGL mode's origin is at the centre
   translate(-width / 2, -height / 2);
 
-  noFill();
-
+  //============================
   //Hour color block transition
   //the night color
   fill(20,20,200);
+  noStroke();
   //Color cover the screen 1/12 more every hour, all bright on 12 pm, all dark on 12pm
   //12 hour reading: from 0-12pm count yellow level for time, from 12pm-0am count blue level
   rect(0, 0, windowWidth, windowHeight/12 * abs((hour()-12)));
+  //clear the depth of rect so it doesn't affect my circles
+  drawingContext.clear(drawingContext.DEPTH_BUFFER_BIT);
 
+  //=======
+  //heart
+  drawHeart();
 
+  //===============
   //Minute circles
   noFill();
   strokeWeight(1);
@@ -56,7 +62,7 @@ function draw(){
     push();
     //translate the rotate origin to center
     translate(width / 2, height / 2);
-    rotateY(frameCount * 0.01 + i * 0.2);
+    rotateY(frameCount * 0.01 + i * 0.5);
     //the outest circle is solid
     if(i == minute()){
       stroke(0,250,250,255);
@@ -68,9 +74,10 @@ function draw(){
     }
     pop();
   }
+  //clear depth of circles
+  drawingContext.clear(drawingContext.DEPTH_BUFFER_BIT);
 
-
-
+  //=======
   //EYES
   strokeWeight(15);
   stroke(20,20,200);
@@ -80,18 +87,8 @@ function draw(){
   drawEye();
   //blink once every minute
   blink();
-
-
-
-
-
-  //heart
-  strokeWeight(1);
-  stroke(250,0,200);
-  line(0, windowHeight/2, windowWidth, windowHeight/2);
-
-
 }
+
 
 //organized functions
 
@@ -126,7 +123,7 @@ function createEye(){
 
 }
 
- function drawEye(){
+function drawEye(){
   //Morning eye opened
   ellipse(eyeMo.x, eyeMo.y, eyeMo.w, eyeMo.h);
   circle(puplMo.x,puplMo.y,puplMo.d);
@@ -160,5 +157,31 @@ function blink(){
   //open eyes after eye almost closed
   if (eyeHi < 1){
     eyeClo = 140;
+  }
+}
+
+function drawHeart() {
+
+  let y = windowHeight / 2;
+  let spacing = windowWidth / 60; // divide the width into 60 pieces
+  let beats = second() + 1; // beat per second
+
+  noFill();
+  strokeWeight(1);
+  stroke(250, 0, 200);
+
+  //draw the beats
+  for (let i = 0; i < beats; i++) {
+    let x = i * spacing;
+
+    beginShape();
+    vertex(x, y);
+    vertex(x + spacing * 0.3, y);
+    vertex(x + spacing * 0.4, y + 8);
+    vertex(x + spacing * 0.5, y - 30);
+    vertex(x + spacing * 0.6, y + 15);
+    vertex(x + spacing * 0.75, y);
+    vertex(x + spacing, y);
+    endShape();
   }
 }
