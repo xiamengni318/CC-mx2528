@@ -6,7 +6,7 @@ body {
   margin: 0; 
   padding: 50px 20px; 
   background-color: greenyellow; 
-  font-family: Arial, sans-serif; 
+  font-family: "Press Start 2P", monospace; /* this font is imported */
 }
 
 /* my name */
@@ -39,11 +39,12 @@ li a {
   justify-content: center;
   align-items: center;
   text-align: center;
+  line-height: 1.8; /* space between lines */
 
   background-color: white; /* grid's color */
   border-radius: 10px; /* round corner */
 
-  font-size: 18px; 
+  font-size: 10px; 
   color: black; 
   text-decoration: none; /* no underline */
 }
