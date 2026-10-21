@@ -171,6 +171,9 @@ function drawHeart() {
   strokeWeight(1);
   stroke(250, 0, 200);
 
+  //prevent from randomness glitching
+  randomSeed(10);
+
   //draw the beats
   for (let i = 0; i < beats; i++) {
     let x = i * spacing;
@@ -179,8 +182,8 @@ function drawHeart() {
     vertex(x, y);
     vertex(x + spacing * 0.3, y);
     vertex(x + spacing * 0.4, y + 8);
-    vertex(x + spacing * 0.5, y - 30);
-    vertex(x + spacing * 0.6, y + 15);
+    //vertex(x + spacing * 0.5, y - random(15, 85)); //testing between different waves
+    vertex(x + spacing * 0.6, y + random(-90, 90));//some randomness to the beat's height
     vertex(x + spacing * 0.75, y);
     vertex(x + spacing, y);
     endShape();
