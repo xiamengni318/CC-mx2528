@@ -1,15 +1,12 @@
 # Clock Reflection
 
 ## What did I do?
-Not so different from what I read from the article. Because the first time I contacted with coding is for art purpose, I always undrstand code as a logical and instructive medium of production. 
-
-Just as the example given in "FORM + CODE". Setting an instruction (or we can say rules) for the participants, and letting them follow it to draw lines on the wall, is also a type of **code** (*Sol LeWitt, Wall Drawing*). So as in creative coding, what we are doing and I was doing were pretty the same: Giving instructions to the PC, and letting it produce what I want. Not only one single frame, but a system that keep running.
-
-So for me, I think coding is a back and forth dialog between me and the computer. I use this ordered system to create explosion. Since everything can be transform into a specific code, that means we can code everything.
+For this project, I made an abstract clock. I used eyes, rotating circles, colors, and a heartbeat line to show time. A new heartbeat appears every second, and the line holds 60 beats in one minute. The circles represent minutes, and the eyes blink when the minute changes. The blue background area changes with the hour to represent day and night. And I design the color to be the same so one of the eye will disappear when fully day/fully night. Fun fun~
 
 ## What did I overcome?
-I used to take Bio-engineering classes. That course strongly impact me with how in the real world - the animals, genes, DNAs are also bunch of codes underneath them. DNA sequences are made of letters like A, T, C, and G, and we can edit these sequences.
+This was my first time using WEBGL. I learned how to rotate the circles with rotateY() and how depth affects which shapes appear in front. At first, the background covered part of the rotating circles, and the circles also blocked the eyes. I learned to clear the depth buffer between these layers.
 
-So I really want to explore this idea visually. Instead of only editing DNA in a lab, I want to see if I can turn DNA sequences and the idea of editing into visual forms through coding. And what happens when a very scientific and controlled system becomes something **visual, expressive, and unexpected**.
+The blinking animation took the most time. I had used lerp() in my second assignment, but I had forgotten how it worked. I needed to separate the current eye height from the target height, then change the target after the eyes closed. The hardest part was keeping the eye outlines, pupils, and eyelashes moving together. Using objects and updating their values helped me connect these parts. I also forgot that setup only run for once, so it stucked me from the blinking animation for so long, until I realized I need to define them in draw function....
 
+Finally, I added simple CSS to my homepage. I learned how to use flex to arrange my assignment links horizontally. I also adjusted the spacing, colors, and font to make the page feel more personal. First time importing a font, quite easy and satisfying.
 ---
