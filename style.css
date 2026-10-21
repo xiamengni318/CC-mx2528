@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0; 
+  padding: 50px 20px; 
+  background-color: greenyellow; 
+  font-family: Arial, sans-serif; 
+}
+
+/* my name */
+h1 {
+  text-align: center;
+  font-size: 32px; 
+  margin-bottom: 40px; /* space between my name and the grids */
+}
+
+/* the aissgnment list */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex; /*flex means ...*/
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap; /* turn to next line automatically*/
+  gap: 20px; /* distance between grids */
+}
+
+/* the links */
+li a {
+  width: 220px; /* grid width */
+  height: 140px; /* grid height */
+  padding: 15px; /* space around text within the grid */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  background-color: white; /* grid's color */
+  border-radius: 10px; /* round corner */
+
+  font-size: 18px; 
+  color: black; 
+  text-decoration: none; /* no underline */
+}
+
+/* when mouse hovers */
+li a:hover {
+  background-color: black;
+  color: greenyellow;
+}
