@@ -11,7 +11,9 @@ The first helps create an unseen canvas(*buffer*) that is a WEBGL renderer. Whil
 
 ## Some Details Behind the Codes
 I also took some time to understand why we need a parameter for the functions. By this I mean: why we need '(mySketch)' in `function itsABox(mySketch)`? Instead of calling the function to draw directly, we need that prefix. 
+
 **A**: Thats because calling `background()` or `rect()` direclty in the function`itsABox()`, although its not in the `draw()` or `setUp()`, it will still *change the main canvas*. So we need to let them know which exact canvas I'm controlling.
 
 Then it makes me wonder why variable `three_dee` for example, when we define `let three_dee = createGraphics(xxx)` can be called directly, but not the `leftQuad` from `let leftQuad = pMapper.createQuadMap(xxx)`. They are all canvas aren't they? 
+
 **A**: Dont' know if I'm right, according to Week7-LLM, `leftQuad` is **not a canvas but a controller** of mapping, its more like the frame of shape, for the mapper, and contains all those points and handles, etc.
