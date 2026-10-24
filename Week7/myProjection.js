@@ -3,7 +3,8 @@ let umbrellaA;
 let umbrellaB;
 let tdCanvas; // 3d rendering canvas
 
-let angle = 0;
+let angle = 0; //ring spin
+let dnaSpin = 0; //dna spin
 
 function setup() {
     //default setup for mapping
@@ -51,8 +52,34 @@ function rednWhite_2d(myS){
 }
 
 function DNA_3d(mySketch){
-    //ring 1 : color
     tdCanvas.background(10,50,250);
+
+    //dna
+    let dnaRadius = 80; //radius of dna
+    let dnaSpacing = 20; //vertical spacing
+    let dnaTwist = 0.015; //twirl density
+
+    tdCanvas.push();
+    tdCanvas.rotateY(dnaSpin);
+    tdCanvas.rotateX(0.3);
+
+    for (let y = -300; y <= 300; y += dnaSpacing) {
+    //twirl as height changing
+        let dnaAngle = y * dnaTwist;
+        //trigonometry, learned from online
+        let x1 = dnaRadius * cos(dnaAngle);//chanin 1
+        let z1 = dnaRadius * sin(dnaAngle);
+        let x2 = dnaRadius * cos(dnaAngle + PI);//chain2: add with half round of difference to seperate from each other
+        let z2 = dnaRadius * sin(dnaAngle + PI);
+        tdCanvas.stroke(255,0,200,220);//connections
+        tdCanvas.strokeWeight(15);
+        tdCanvas.line(x1, y, z1, x2, y, z2);
+    }
+    dnaSpin += 0.02;
+
+    tdCanvas.pop();
+
+    //ring 1 : color
     tdCanvas.fill(255,255,0);
     tdCanvas.noStroke();
     
