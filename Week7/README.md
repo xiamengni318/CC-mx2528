@@ -17,3 +17,5 @@ I also took some time to understand why we need a parameter for the functions. B
 Then it makes me wonder why variable `three_dee` for example, when we define `let three_dee = createGraphics(xxx)` can be called directly, but not the `leftQuad` from `let leftQuad = pMapper.createQuadMap(xxx)`. They are all canvas aren't they? 
 
 **A**: Dont' know if I'm right, according to Week7-LLM, `leftQuad` is **not a canvas but a controller** of mapping, its more like the frame of shape, for the mapper, and contains all those points and handles, etc.
+
+![Protection Umbrella](Week7.IMG_9939.HEIC)
