@@ -19,4 +19,8 @@ Then it makes me wonder why variable `three_dee` for example, when we define `le
 **A**: Dont' know if I'm right, according to Week7-LLM, `leftQuad` is **not a canvas but a controller** of mapping, its more like the frame of shape, for the mapper, and contains all those points and handles, etc.
 
 ![Protection Umbrella](./Umbrella.jpg)
-![Protection Umbrella Video](./IMG_9941.MOV)
+Video：
+https://github.com/user-attachments/assets/15c8da72-83aa-4559-ba9b-5936e7fe3258
+
+
+
