@@ -14,9 +14,9 @@ function draw() {
   // create pixel array for the grabber
   capture.loadPixels();
   // do all the drawing in the offscreen graphics buffer
-  disp.background(0,0,250,10);
+  disp.background(0,20,250,5);
   
-  const stepSize = 8; // every 8 pixels = 1 step
+  const stepSize = 10; // every 10 pixels = 1 step
 
   // loop through the video image
   for (let y = 0; y < capture.height; y += stepSize) {
@@ -35,8 +35,16 @@ function draw() {
       disp.push();
       // translate to centre
       disp.translate(x + stepSize / 2, y + stepSize / 2);
+
+      //dragging effect
+      disp.push();
+      disp.stroke(255, 0, 250, darkness * 180);
+      disp.strokeWeight(darkness);
+      disp.circle(0, 0, w);
+      disp.pop();
+
       //fill color base on darkness, the darker the brighter the redness is
-      disp.fill(darkness * 250, 50, 50);
+      disp.fill(darkness * 250, 0, 0);
       //color of the stroke, the darker the more solid the edge of the circle is
       disp.stroke(0, 255, 0, darkness * 255);
       //the darker the bolder the stroke is
