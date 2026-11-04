@@ -4,13 +4,10 @@ let disp; // an offscreen canvas that hold an image to scale up
 async function setup() {
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1);
-  disp = createGraphics(640, 480);
-  // start video grabber
+  disp = createGraphics(640, 480); // start off screen video grabber
   capture = await createCapture(VIDEO);
   capture.size(640, 480);
   capture.hide(); // hide HTML video
-  noFill();
-  background(25);
 }
 
 function draw() {
@@ -19,35 +16,37 @@ function draw() {
   // do all the drawing in the offscreen graphics buffer
   disp.background(0,0,250,10);
   
-  const stepSize = 10; // every 20 pixels
+  const stepSize = 8; // every 8 pixels = 1 step
+
   // loop through the video image
   for (let y = 0; y < capture.height; y += stepSize) {
     for (let x = 0; x < capture.width; x += stepSize) {
-      // magic algo to get the number in the pixel array
+
+      // get the number in the pixel array
       const i = y * capture.width + x;
+
       // get the value of the pixel's brightness
-      // r+g+b/3 will give us a general sense of brightness
-      const darkness =
-        (255 - (capture.pixels[i * 4] + capture.pixels[i * 4 + 1] + capture.pixels[i * 4 + 2]) /3) / 255;
-      // determine width of the rect to draw
+      const darkness = (255 - (capture.pixels[i * 4] + capture.pixels[i * 4 + 1] + capture.pixels[i * 4 + 2]) /3) / 255;
+      
+      // the darker the bigger the circle is
       const w = stepSize * darkness;
 
-      // all the following happens offscreen
-      // draw the rects
+      // draw out the effects
       disp.push();
-      // move the translation
+      // translate to centre
       disp.translate(x + stepSize / 2, y + stepSize / 2);
+      //fill color base on darkness, the darker the brighter the redness is
       disp.fill(darkness * 250, 50, 50);
-      // set the color
+      //color of the stroke, the darker the more solid the edge of the circle is
       disp.stroke(0, 255, 0, darkness * 255);
+      //the darker the bolder the stroke is
       disp.strokeWeight(darkness * 2);
-      // draw it
-      disp.circle(0, 0, w/1.5);
+      // draw circles
+      disp.circle(0, 0, w/1.3);
       disp.pop();
     }
   }
-  // draw the offscreen image to scale across the
-  // entire canvas
+  // scale the disp to fit the entire canvas
   image(disp, 0, 0, width, height);
 }
 
