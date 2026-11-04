@@ -1,5 +1,5 @@
 let capture; // object to hold the video grabber
-//let rot = 0.0; // rotation
+let rot = 0.0; // rotation
 let disp; // hold an image to scale up
 
 async function setup() {
