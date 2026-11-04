@@ -1,6 +1,5 @@
 let capture; // object to hold the video grabber
-let rot = 0.0; // rotation
-let disp; // hold an image to scale up
+let disp; // an offscreen canvas that hold an image to scale up
 
 async function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -18,7 +17,7 @@ function draw() {
   // create pixel array for the grabber
   capture.loadPixels();
   // do all the drawing in the offscreen graphics buffer
-  disp.background(0,0,250,20);
+  disp.background(0,0,250,10);
   
   const stepSize = 10; // every 20 pixels
   // loop through the video image
@@ -41,18 +40,15 @@ function draw() {
       disp.fill(darkness * 250, 50, 50);
       // set the color
       disp.stroke(0, 255, 0, darkness * 255);
-      //disp.rectMode(CENTER);
-      disp.rotate(rot);
       disp.strokeWeight(darkness * 2);
       // draw it
-      disp.circle(0, 0, w);
+      disp.circle(0, 0, w/1.5);
       disp.pop();
     }
   }
   // draw the offscreen image to scale across the
   // entire canvas
   image(disp, 0, 0, width, height);
-  rot += 0.02;
 }
 
 // redraw when viewport is resized
