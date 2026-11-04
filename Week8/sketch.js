@@ -36,7 +36,7 @@ function draw() {
       // translate to centre
       disp.translate(x + stepSize / 2, y + stepSize / 2);
 
-      //dragging effect
+      //purple dragging effect
       disp.push();
       disp.stroke(255, 0, 250, darkness * 180);
       disp.strokeWeight(darkness);
