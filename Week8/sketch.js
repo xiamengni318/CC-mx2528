@@ -21,6 +21,8 @@ function draw() {
   // loop through the video image
   for (let y = 0; y < capture.height; y += stepSize) {
     for (let x = 0; x < capture.width; x += stepSize) {
+      // gap 10 pixels within between
+      if (y % 20 == 0){
 
       // get the number in the pixel array
       const i = y * capture.width + x;
@@ -52,6 +54,7 @@ function draw() {
       // draw circles
       disp.circle(0, 0, w/1.3);
       disp.pop();
+      }
     }
   }
   // scale the disp to fit the entire canvas
