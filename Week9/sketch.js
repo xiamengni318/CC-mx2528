@@ -7,6 +7,8 @@ let hands = [];
 
 async function setup() {
   createCanvas(1280, 960);
+  pixelDensity(1);
+  
   // Access the webcam video, resize it to fit the canvas, and hide it from the display.
   video = createCapture(VIDEO);
   video.size(1280, 960);
