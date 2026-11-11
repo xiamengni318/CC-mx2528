@@ -20,19 +20,47 @@ async function setup() {
 function draw() {
   background(220);
   image(video, 0, 0);
-  // Loop through the "hands" array to fetch each detected hand.
-  for (let i = 0; i < hands.length; i++) {
-    // Iterate through all the keypoints of the current hand.
-    let hand = hands[i];
-    for (let j = 0; j < hand.keypoints.length; j++) {
-      let keypoint = hand.keypoints[j];
-      // Finally, draw a green circle at the location of the keypoint.
-      fill(0, 255, 0);
-      noStroke();
-      circle(keypoint.x, keypoint.y, 10);
-    }
+
+  // 2 hands deteted
+  if (hands.length >= 2) {
+    let hand1 = hands[0];
+    let hand2 = hands[1];
+
+    //thumb, index and middle finger of hand1
+    let t1 = hand1.thumb_tip;
+    let i1 = hand1.index_finger_tip;
+    let m1 = hand1.middle_finger_tip;
+    let r1 = hand1.ring_finger_tip;
+
+    //thumb, index and middle finger of hand2
+    let t2 = hand2.thumb_tip;
+    let i2 = hand2.index_finger_tip;
+    let m2 = hand2.middle_finger_tip;
+    let r2 = hand2.ring_finger_tip;
+
+    stroke(255);
+    strokeWeight(1);
+
+    // index and thumb quad
+    fill(255, 0, 0, 120);
+    quad(t1.x, t1.y, i1.x, i1.y, i2.x, i2.y, t2.x, t2.y);
+
+    // thumb and middle quad
+    fill(0, 255, 0, 120);
+    quad(t1.x, t1.y, m1.x, m1.y, m2.x, m2.y, t2.x, t2.y); 
+
+    // index and middle quad
+    fill(0, 0, 255, 120);
+    quad(i1.x, i1.y, m1.x, m1.y, m2.x, m2.y, i2.x, i2.y); 
+
+    // ring and middle quad
+    fill(0, 255, 255, 150);
+    quad(r1.x, r1.y, m1.x, m1.y, m2.x, m2.y, r2.x, r2.y);
+
   }
+
 }
+
 
 
 // Callback function for when handPose outputs data
