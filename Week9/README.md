@@ -1,0 +1,6 @@
+# Week 8 Selfie
+
+## What I did?
+This week I made a halftone[I just knew it's called this word in Eng]. effect of camera. What I did is highly delay effect for the movements, by seting low opacity of background. And dots effect on the entire screen. The color references to heat map/ stress map?  Basically the color I really like. To create this cyberpunk vibe and very cool. I didn't put a big number for the steps because I tested, if its tooo condense / the image is too clear and the delay will be messed up that the whole screen is blurry.
+## Reflection
+What I encountered interesting is how to control the color of the trailing. Cuz' its based on the background opacity, so what I have on the screen decide what the trailing's color is. Therefore, I thought about capture my body's outline, and create a edge of it with different color of stroke. However, that's kinda out of my ability. So I though about creating a layer of dots with purple[intended color I want for trailing], and then use the mechanism of p5js. Finally draw the atual dots above it. So the trailing will be slightly seen when the image is frozen. And fully effective when I am moving.
