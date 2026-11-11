@@ -57,7 +57,7 @@ function draw() {
 
       //start clipping, restrict the drawing within this shape
       drawingContext.clip();
-      
+
       // add a layer of solid color before drawing dots, so it covers the camera
       noStroke();
       fill(0,20,250);
@@ -91,7 +91,8 @@ function draw() {
         }
       }
 
-      // clear the canvas state, avoid infinite clipping
+      // clear the canvas state, avoid infinite clipping, 
+      // also! not influencing the codes after this
       drawingContext.restore();
     }
 
