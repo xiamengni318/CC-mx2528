@@ -44,10 +44,10 @@ let previousMidEnergy = 0;
 let midCircles = [];
 
 // Minimum energy to detect a clap.
-const CLAP_MIN_LEVEL = 0.15;
+const CLAP_MIN_LEVEL = 0.3;
 
 // Minimum sudden increase to detect a clap.
-const CLAP_RISE = 0.002;
+const CLAP_RISE = 0.003;
 
 // Circle display time in frames.
 const CIRCLE_LIFE = 10;
