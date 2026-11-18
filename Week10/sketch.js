@@ -115,14 +115,10 @@ function draw() {
 
   // Draw the camera or yellow background.
   if (yellowMode) {
-    background(255, 230, 0);
+    background(255, 230, 0,80);
   } else {
     image(video, 0, 0);
   }
-
-  // BASS VISUAL
-  // Add the bass effect here later.
-
 
   // MID VISUAL
   // Add the mid effect here later.
@@ -130,6 +126,7 @@ function draw() {
 
   // TREBLE VISUAL
   if (yellowMode) {
+    drawBassBox(bassEnergy);
     drawTrebleRings(trebleEnergy);
   }
 
@@ -245,7 +242,6 @@ function draw() {
 // Callback function for when handPose outputs data
 function gotHands(results) {
 
-
   // Save the output to the hands variable
   hands = results;
 }
@@ -357,13 +353,13 @@ function drawTrebleRings(treble) {
   strokeWeight(2);
 
   // Draw 20 circles from inside to outside.
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 15; i++) {
 
     // Calculate the radius of each circle.
-    let baseRadius = (i + 1) * (height / 2) / 20;
+    let baseRadius = i * (height / 2) / 20;
 
     // Change from light to dark.
-    stroke(255 - i * 9);
+    stroke(255, 0, 200 /  2 * i, 255 - i * 9);
 
     beginShape();
 
@@ -378,7 +374,7 @@ function drawTrebleRings(treble) {
       );
 
       // Treble controls how much the circle changes.
-      let distortion = (n - 0.5) * (35 + treble * 100);
+      let distortion = (n - 0.9) * 400 * treble;
 
       // Calculate the final radius.
       let r = baseRadius + distortion;
@@ -392,5 +388,28 @@ function drawTrebleRings(treble) {
 
     endShape(CLOSE);
   }
+  pop();
+}
+
+// Draw a rectangle controlled by bass energy.
+function drawBassBox(bass) {
+
+  push();
+
+  // Move to the center of the canvas.
+  translate(width / 2, height / 2);
+
+  // Calculate the rectangle size.
+  let boxSize = 450 + bass * 250;
+
+  // the outline.
+  stroke(100,0,250);
+  strokeWeight(80);
+  noFill();
+
+  // Draw the rectangle.
+  rectMode(CENTER);
+  rect(0, 0, boxSize, boxSize * 0.75);
+
   pop();
 }
