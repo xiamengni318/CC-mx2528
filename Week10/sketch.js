@@ -37,6 +37,21 @@ let bassEnergy = 0;
 let midEnergy = 0;
 let trebleEnergy = 0;
 
+// Store the previous mid energy.
+let previousMidEnergy = 0;
+
+// Store all the white circles.
+let midCircles = [];
+
+// Minimum energy to detect a clap.
+const CLAP_MIN_LEVEL = 0.15;
+
+// Minimum sudden increase to detect a clap.
+const CLAP_RISE = 0.002;
+
+// Circle display time in frames.
+const CIRCLE_LIFE = 10;
+
 // Store the yellow background mode.
 let yellowMode = false;
 
@@ -70,7 +85,7 @@ async function setup() {
   // Load the music file.
   song = await loadSound("song.mp3");
   // Create an FFT analyzer with 512 frequency bands.
-  fft = new p5.FFT(512);
+  fft = new p5.FFT(2048);
   // Connect the music to the FFT analyzer.
   song.connect(fft);
   // Create a Play button.
@@ -106,9 +121,9 @@ function draw() {
   let spectrum = fft.analyze();
 
   // Analyze three frequency ranges.
-  bassEnergy = getBandEnergy(spectrum, 20, 250);
-  midEnergy = getBandEnergy(spectrum, 250, 2000);
-  trebleEnergy = getBandEnergy(spectrum, 2000, 12000);
+  bassEnergy = getBandEnergy(spectrum, 0, 300);
+  midEnergy = getBandEnergy(spectrum, 300, 6000);
+  trebleEnergy = getBandEnergy(spectrum, 4000, 12000);
 
   // Update the bass hit detection.
   updateBassLevel(spectrum);
@@ -121,13 +136,15 @@ function draw() {
   }
 
   // MID VISUAL
-  // Add the mid effect here later.
+  // Detect claps.
+  updateMidClaps();
 
 
   // TREBLE VISUAL
   if (yellowMode) {
     drawBassBox(bassEnergy);
     drawTrebleRings(trebleEnergy);
+    drawMidCircles();
   }
 
   // 2 hands deteted
@@ -412,4 +429,56 @@ function drawBassBox(bass) {
   rect(0, 0, boxSize, boxSize * 0.75);
 
   pop();
+}
+
+// Detect sudden mid frequency changes.
+function updateMidClaps() {
+
+  // Check if the mid energy suddenly increases.
+  let midRise = midEnergy - previousMidEnergy;
+
+  if (
+    midEnergy > CLAP_MIN_LEVEL &&
+    midRise > CLAP_RISE
+  ) {
+
+    // Create a circle at a random position.
+    let newCircle = {
+      x: random(width),
+      y: random(height),
+      size: random(20, 100),
+      life: CIRCLE_LIFE
+    };
+
+    // Add the circle to the array.
+    midCircles.push(newCircle);
+  }
+
+  // Save the current mid energy.
+  previousMidEnergy = midEnergy;
+}
+
+
+// Draw and remove the circles.
+function drawMidCircles() {
+
+  noStroke();
+  fill(255,255,255,200);
+
+  // Go through all circles.
+  for (let i = midCircles.length - 1; i >= 0; i--) {
+
+    let c = midCircles[i];
+
+    // Draw the white circle.
+    circle(c.x, c.y, c.size);
+
+    // Reduce its remaining display time.
+    c.life--;
+
+    // Remove the circle when its time is over.
+    if (c.life <= 0) {
+      midCircles.splice(i, 1);
+    }
+  }
 }
