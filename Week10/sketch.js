@@ -58,9 +58,27 @@ let yellowMode = false;
 // Store the yellow mode button.
 let yellowButton;
 
+let songSelect;
+
 async function setup() {
   createCanvas(640, 480);
   pixelDensity(1);
+
+  // Create a dropdown menu for songs.
+  songSelect = createSelect();
+
+  songSelect.position(400, 500);
+
+  // Add song options.
+  songSelect.option("Original Song", "song.mp3");
+  songSelect.option("Am I Dreaming", "Am I Dreaming.mp3");
+  songSelect.option("Self Love", "SelfLove.mp3");
+
+  // Set the default song.
+  songSelect.selected("song.mp3");
+
+  // Change song when an option is selected.
+  songSelect.changed(changeSong);
 
   // Create a button to switch the yellow background.
   yellowButton = createButton("YELLOW MODE");
@@ -481,4 +499,28 @@ function drawMidCircles() {
       midCircles.splice(i, 1);
     }
   }
+}
+
+// Change the current song.
+function changeSong() {
+  // Get the selected song file.
+  let fileName = songSelect.value();
+
+  // Check if the current song is playing.
+  let wasPlaying = song && song.isPlaying();
+
+  // Stop the current song.
+  if (song) {
+    song.stop();
+  }
+
+  // Load the new song.
+  let newSong = loadSound(fileName, () => {
+    // Play the new song if the previous song was playing.
+    if (wasPlaying) {
+      newSong.play();
+    }
+  });
+
+  song = newSong;
 }
