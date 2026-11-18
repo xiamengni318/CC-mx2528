@@ -8,18 +8,18 @@ let previousBassLevel = 0;
 let bassPulse = 0;
 
 // Set the lowest frequency to analyze, in Hz.
-const BASS_LOW_HZ = 35;
+const BASS_LOW_HZ = 0;
 
 // Set the highest frequency to analyze, in Hz.
-const BASS_HIGH_HZ = 160;
+const BASS_HIGH_HZ = 300;
 
 // Minimum bass energy needed to detect a hit.
 // Increase this number to ignore weaker sounds.
-const BASS_HIT_MIN_LEVEL = 0.10;
+const BASS_HIT_MIN_LEVEL = 0.08;
 
 // Minimum sudden increase needed to detect a hit.
 // Increase this number to detect fewer hits.
-const BASS_HIT_RISE = 0.035;
+const BASS_HIT_RISE = 0.02;
 
 // Control how fast the visual pulse disappears.
 // Smaller number = faster fade.
@@ -71,7 +71,7 @@ async function setup() {
 
   // Add song options.
   songSelect.option("Original Song", "song.mp3");
-  songSelect.option("Am I Dreaming", "Am I Dreaming.mp3");
+  songSelect.option("Am I Dreaming", "AmIDreaming.mp3");
   songSelect.option("Self Love", "SelfLove.mp3");
 
   // Set the default song.
@@ -103,7 +103,7 @@ async function setup() {
   // Load the music file.
   song = await loadSound("song.mp3");
   // Create an FFT analyzer with 512 frequency bands.
-  fft = new p5.FFT(2048);
+  fft = new p5.FFT(1024);
   // Connect the music to the FFT analyzer.
   song.connect(fft);
   // Create a Play button.
@@ -501,26 +501,53 @@ function drawMidCircles() {
   }
 }
 
+// Check if a song is currently loading.
+let isChangingSong = false;
+
 // Change the current song.
-function changeSong() {
+async function changeSong() {
+
+  // Prevent multiple song changes at the same time.
+  if (isChangingSong) return;
+
+  isChangingSong = true;
+
+  // Remember if the current song is playing.
+  let wasPlaying = song && song.isPlaying();
+
   // Get the selected song file.
   let fileName = songSelect.value();
 
-  // Check if the current song is playing.
-  let wasPlaying = song && song.isPlaying();
-
-  // Stop the current song.
+  // Stop the old song.
   if (song) {
     song.stop();
-  }
+  } try {
+    // Wait until the new song is fully loaded.
+    let newSong = await loadSound(fileName);
 
-  // Load the new song.
-  let newSong = loadSound(fileName, () => {
-    // Play the new song if the previous song was playing.
+    // Replace the old song.
+    song = newSong;
+
+    // Connect FFT to the new song.
+    fft.setInput(song);
+
+    // Reset the audio values.
+    bassLevel = 0;
+    previousBassLevel = 0;
+    bassPulse = 0;
+    previousMidEnergy = 0;
+    midCircles = [];
+
+    // Finish changing songs.
+    isChangingSong = false;
+
+    // Play the new song if the old song was playing.
     if (wasPlaying) {
-      newSong.play();
+      song.play();
     }
-  });
-
-  song = newSong;
+    //new line learned
+  } catch (error) {
+    console.error("Song loading failed:", error);
+    isChangingSong = false;
+  }
 }
