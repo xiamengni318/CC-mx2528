@@ -50,7 +50,7 @@ function draw() {
   drawGrid();
   drawBoroughBoundaries();
   drawSquirrelPoints();
-  drawTestPoint();
+  //drawTestPoint();
   drawFooter();
 
 }
@@ -65,17 +65,17 @@ function getTodayDate() {
   return year + "-" + month + "-" + day;
 }
 
-// Load squirrel observations from iNaturalist
+// Load squirrel observations from NEW iNaturalist API
 function loadSquirrelData() {
   let today = getTodayDate();
-  let url =
-    "https://www.inaturalist.org/observations.json?" +
-    //squirell species
+  let url = "https://api.inaturalist.org/v1/observations?" +
+    //species
     "taxon_id=46017" +
-    //only get these with geometric position
-    "&has%5B%5D=geo" +
-    //only get today's data
-    "&on=" + today +
+    //has geometri position
+    "&geo=true" +
+    // Today's observation date
+    //"&d1=" + today +
+    //"&d2=" + today +
     //south
     "&swlat=" + mapBounds.minLat +
     //west
@@ -84,22 +84,34 @@ function loadSquirrelData() {
     "&nelat=" + mapBounds.maxLat +
     //east
     "&nelng=" + mapBounds.maxLon +
-    //not 200, but max 200
-    "&per_page=200" +
-    //order in observed time
+    //max 100
+    "&per_page=100" +
+    //order in time
     "&order_by=observed_on" +
-    //same as above and from new to old
+    //from new to old
     "&order=desc";
+
+  console.log("Requesting squirrel data:", url);
   loadJSON(url,squirrelDataLoaded,squirrelDataFailed);
 }
 
 // If data loads successfully
 function squirrelDataLoaded(data) {
-  console.log("Squirrel data received!");
-  console.log(data);
-  squirrelObservations = data;
-  squirrelLoaded = true;
-  console.log("Total squirrels:", squirrelObservations.length);
+  console.log("API response:", data);
+  console.log("Total results:", data.total_results);
+  // Get the actual observation array
+  squirrelObservations = data.results;
+  console.log("Squirrel observations:",squirrelObservations.length);
+
+  // Check the first observation
+
+  let firstSquirrel = squirrelObservations[0];
+
+  console.log("First squirrel:", firstSquirrel);
+
+  console.log("Latitude:", firstSquirrel.latitude);
+
+  console.log("Longitude:", firstSquirrel.longitude);
 }
 
 function drawHeader() {
@@ -206,8 +218,8 @@ function drawSquirrelPoints() {
   for (let i = 0; i < squirrelObservations.length; i++) {
     let observation = squirrelObservations[i];
     // Get geographic coordinates
-    let longitude = Number(observation.longitude);
-    let latitude = Number(observation.latitude);
+    let longitude = Number(observation.geojson.coordinates[0]);
+    let latitude = Number(observation.geojson.coordinates[1]);
 
     // Convert geographic coordinates into canvas coordinates
     let x = lonToX(longitude);
@@ -228,29 +240,30 @@ function squirrelDataFailed(error) {
   console.error("Could not load squirrel data:", error);
 }
 
-function drawTestPoint() {
-  // Approximate Central Park coordinate
-  let longitude = -73.9654;
-  let latitude = 40.7829;
-  let x = lonToX(longitude);
-  let y = latToY(latitude);
+//The Toy
+// function drawTestPoint() {
+//   // Approximate Central Park coordinate
+//   let longitude = -73.9654;
+//   let latitude = 40.7829;
+//   let x = lonToX(longitude);
+//   let y = latToY(latitude);
 
-  // Crosshair
-  stroke(255, 100);
-  line(x - 12, y, x + 12, y);
-  line(x, y - 12, x, y + 12);
+//   // Crosshair
+//   stroke(255, 100);
+//   line(x - 12, y, x + 12, y);
+//   line(x, y - 12, x, y + 12);
 
-  // center point
-  noStroke();
-  fill(0,255,0);
-  circle(x, y, 5);
+//   // center point
+//   noStroke();
+//   fill(0,255,0);
+//   circle(x, y, 5);
 
-  // Label
-  fill(180);
-  textSize(10);
-  text("CENTRAL PARK / TEST POINT",x + 14,y - 10);
+//   // Label
+//   fill(180);
+//   textSize(10);
+//   text("CENTRAL PARK / TEST POINT",x + 14,y - 10);
 
-}
+// }
 
 // Mapping the Longitude to canvas's X position
 function lonToX(longitude) {
@@ -272,10 +285,7 @@ function drawFooter() {
 
   if (squirrelLoadFailed) {
     text("SQUIRREL DATA: ERROR", width - 40, height - 30);
-  } else if (!squirrelLoaded) {
-    text("SQUIRRELS: LOADING...", width - 40, height - 30);
   } else {
-    text("SQUIRRELS: " + squirrelObservations.length,width - 40,height - 30);
+    text("SQUIRRELS: " + squirrelObservations.length, width - 40,height - 30);
   }
-  textAlign(LEFT);
 }
