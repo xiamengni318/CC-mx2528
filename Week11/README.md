@@ -1,27 +1,60 @@
-# Week 10 Spider Universe VJ
+# Week 11 Reflection – Squirrel Watch
 
-## What I did?
+For this project, I decided to create a black-and-white map that shows recent squirrel observations in New York City. I have always thought squirrels are cute and interesting. I have also made a documentary about urban wildlife before, mainly focusing on squirrels. So this project is not only a data visualization exercise for me. I also want to make something useful for my own research and future filming. My idea is to create a dark map with a semi-transparent grid and white outlines of New York City. Each squirrel observation will appear as a small glowing white dot.
 
-I worked on a music visualization VJ page, that continued from my previous work. I wanted to make different visual elements react to different parts of the music. Instead of making everything move in the same way, I divided the sound into three frequency ranges: bass, mid, and treble.
+## Understanding the Data
 
-For the **bass**, I created a heavy Royal Blue stroked rectangle around the canvas. Its size changes according to the bass energy. The stronger the bass, the bigger the rectangle becomes. I also connected the bass energy to my hand-tracking halftone effect from last week. The halftone dots inside the areas drawn by my hands can react to strong bass sounds. When the bass gets stronger, the dots become bigger. So the hand effect is not just showing the camera image anymore. It also reacts to the music.
+At first, I found it difficult to understand what a dataset actually contained. I thought a database might be something more complicated than a table. I also wondered how a table on a website could become an API.
 
-For the **mid frequencies**, I wanted to create something like a clap reaction. When the mid energy suddenly increases, white circles appear at random positions on the canvas. Each circle has a random size between 20 and 100 pixels. I also added transparency to the background, so the circles leave a fading trail after they appear.
+Through this process, I started to understand the differences between a database, a dataset, an API, and JSON. A dataset is a collection of related information. An API is a way for my code to request that information from another website or server. JSON is one format used to organize and return the data.
 
-For the **treble**, I created 15 circles from the center to the outside. They use `noise()` to create a wavy and organic shape. The treble energy controls how much the circles change their shapes. I also added a yellow mode. In this mode, the camera background is covered by bright yellow, and only the areas drawn by my hands show the halftone video.
+I explored two sources: The Squirrel Census and iNaturalist. The Squirrel Census has interesting information about squirrels, including their locations, fur colors, and behaviors. However, its Central Park survey mainly contains historical observations from 2018. It is useful for studying a specific survey, but it is not suitable for finding recent observations every day. So I became more interested in iNaturalist because people continue to upload new observations. It provides information such as species names, observation dates, geographic coordinates, photos, and sometimes descriptions. One important thing I learned is that I should not try to understand every field in a dataset at once. Instead, I should first ask a few basic questions:
 
-## What challenges did I overcome?
+- What does one row represent?
+- Which fields tell me where something happened?
+- Which fields tell me when it happened?
+- Which fields tell me what species was observed?
+- Which fields describe its behavior or other details?
 
-One of the biggest challenges this week was understanding the sound analysis code itself. I spent a lot of time reading code examples and tutorials from websites, but I found it quite difficult to understand the logic behind them.
+Once I started asking these questions, the data became much easier to understand.
 
-For example, in my `getBandEnergy()` function, I saw variables like `lo` and `hi`, and I didn't understand what they meant at first. Later, I learned that they represent the starting and ending positions of a frequency range inside the FFT spectrum array. The code needs to convert frequency values in Hz into positions in that array.
+## Learning How to Read and Use an API
 
-Another confusing part was `nyquist`. I learned that the Nyquist frequency is half of the audio sample rate. That's why the code uses `getAudioContext().sampleRate / 2`. The FFT spectrum represents frequencies from 0 Hz up to this Nyquist frequency, so I need to use it to calculate which part of the spectrum belongs to the frequency range I want. I could find these formulas online, but understanding *why* they work was much harder than just copying the code. I wanted to understand what each number actually represents, instead of only making the code work.
+At first, I did not understand what happened when I called `loadJSON()`. I was confused about why there were two `function()` parameters inside it. I eventually learned about callbacks [Thank for our weekly LLM]. The first function is called when the data loads successfully, and the second one handles errors. The data downloaded from the server is passed into the first function as a parameter. Compared with `async/await`, they are two different ways to handle asynchronous operations. They both help us deal with something that takes time, such as downloading information from the internet / uploading a song.
 
-Also, for detecting sudden changes in the mid frequencies. I didn't want the white circles to appear all the time. So I tried to compare the current mid energy with the previous frame. When there is a big increase, the code creates a circle at a random position. It is not a perfect clap detector, but it gives me a way to react to sudden sounds.
+## Understanding GeoJSON
 
-So many problems happen this week actually, another one is about the code structure. For example, I learned that `fft.analyze()` should be called once in each frame, and the same spectrum data can be passed to different functions. I also had an error because I used `spectrum` inside a function without passing it in as a parameter.
+One of my biggest difficulties was importing the boundaries of New York City. I discovered that geographic information can have different geometry types, such as `Polygon` and `MultiPolygon`. These are not special JavaScript functions. They are string values provided by the GeoJSON data itself. I used `if` and `else if` to check the geometry type. A Polygon can be drawn directly, while a MultiPolygon contains multiple separate polygons, so I needed a `for` loop to draw them one by one.
 
-## Reflection
+Another important part was converting geographic coordinates into p5.js canvas coordinates. I learned that longitude controls the horizontal position (X), while latitude controls the vertical position (Y). Since geographic maps and the p5.js canvas have opposite vertical directions, I had to reverse the range in the `map()` function when converting latitude.
 
-This week's practice make me realized that making a VJ is not just about making things move with music. I need to think about what kind of movement matches each sound. For example, bass feels stronger and heavier, so I used a growing rectangle and made the halftone dots react to strong bass. Mid-frequency changes can create sudden reactions, so I used random circles like snares. Treble feels more delicate, so I used wavy rings. I still need to spend time figuring out what the variables and formulas actually mean. Especially with sound analysis, there are many numbers and calculations that I cannot fully understand just by looking at the code. Now is like ablt to use but only understanding half of it. However, I enjoy this and it was interesting to turn something I hear into something I can see.
+
+## Small Functions and Things I Learned
+
+During this process, I learned several functions that I had not fully understood before.
+
+- **`toFixed(2)`**: Keeps two decimal places when displaying a number. I used it to make longitude and latitude labels shorter and easier to read. I also learned that it returns a string, not a number.
+
+- **`padStart(2, "0")`**: Adds a zero at the beginning when a string has fewer than two characters. I used it to format dates, such as changing `4` into `04`, so the date could follow the `YYYY-MM-DD` format.
+
+- **`Number()`**: Converts a value into a number, which is important when using coordinates in mathematical calculations.
+
+- **`Number.isFinite()`**: Checks whether a value is a valid, finite number.
+
+- **`continue`**: Skips the current item in a loop and moves to the next one.
+
+I also learned to use `console.log()` much more often. Instead of guessing why something was not working, I started checking the actual data in the browser console. This helped me discover the API response structure, check the number of observations, and find the correct coordinate fields.
+
+## What Am I Trying to Illustrate, Reveal, or Argue For?
+
+I mainly want to illustrate where squirrels have recently been observed in New York City. I am not trying to show the actual population of squirrels or track the exact movement of one individual squirrel. Each dot represents one observation record, not necessarily one unique animal. What I want to reveal is the presence and distribution of urban wildlife around us. Squirrels are part of the city, but we often see them as ordinary background animals without paying much attention to where they live, when they appear, or what they are doing.
+
+By turning observation records into a map, I hope to make these small pieces of information easier to see and explore. So if I am doing further documenting of them I know where exactly I should go. Cuz' it simplifies the original data visually.
+
+## Am I Working With Existing Data or Refashioning It?
+
+I am using data that already exists on iNaturalist. I am not collecting all the observations myself or building a new database. However, I am refashioning the existing data into a different form. I want the map to request the latest observations every time the page is opened, rather than showing a fixed collection of old records.
+
+## Final Thoughts
+
+This process was much more difficult than I expected. But each problem helped me understand another part of the process. I learned that reading and understanding the data is just as important as writing the drawing code. But when I finally see the real squirrel observations appear on my map. It made the connection between data and the physical world feel much more real to me.
