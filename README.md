@@ -38,7 +38,7 @@ I want to merge the two halves into one piece. The VJ visuals become the content
 4. Redesign the visuals for fabric: bolder shapes and higher contrast, vertical flow that suits, fewer fine details.
 5. Save and load the mapping (`map.json`) so I can recalibrate quickly each time I set up.
 
-**Sketch.** See [`sketch.svg`](sketch.svg) (wireframe of the window, curtains and projector). 
+**Room Sketch** See [`room`](room.png) &  [`sketch`](sketch.png) (wireframe of the window, curtains and projector). 
 
 ---
 
